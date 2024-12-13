@@ -1,6 +1,7 @@
 import express from 'express'
 import routes from './routes'
 import { errorHandler } from './middlewares/errorHandler'
+import { multerErrorHandler } from './middlewares/multerErrorHandler'
 import logger from './utils/logger'
 
 const app = express()
@@ -13,6 +14,18 @@ app.use((req, res, next) => {
 
 app.use('/api', routes)
 
-app.use(errorHandler)
+app.use(errorHandler as (
+    error: Error,
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction
+) => void)
+
+app.use(multerErrorHandler as (
+    error: Error,
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction
+) => void)
 
 export default app
