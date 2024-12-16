@@ -1,7 +1,10 @@
+import dotenv from 'dotenv'
+import { env } from './config/env'
 import app from './app'
 import logger from './utils/logger'
 
-const PORT = process.env.PORT || 3000
+const PORT = env.port || 3000
+dotenv.config({ path: env.nodeEnv === 'test' ? '.env.test' : '.env' })
 
 app.listen(PORT, () => {
     logger.info(`Image processing service running on port ${PORT}`)
