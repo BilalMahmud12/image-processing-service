@@ -1,15 +1,14 @@
-export const imageConfig = {
-    maxUploadLimit: 5,
+import type { ImageConfig } from '../types/config'
+
+export const imageConfig: ImageConfig = {
     game: {
-        thumbnail: { 
-            width: 184, 
-            height: 256 
-        },
+        variations: {
+            thumbnail: { width: 184, height: 256 }
+        }
     },
     promotion: {
-        resized: { 
-            width: 361, 
-            height: 240 
-        },
-    },
+        variations: {
+            resized: { width: 361, height: 240 }
+        }
+    }
 }
