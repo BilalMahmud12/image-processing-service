@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "target": "ES6",
     "module": "commonjs",
     "outDir": "./dist",
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["./*"] 
+    }
   },
-  "include": ["src/**/*", "__tests__"]
+  "include": ["src/**/*", "src/global.d.ts", "__tests__"]
 }
-
