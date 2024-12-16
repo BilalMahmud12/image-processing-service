@@ -1,15 +1,15 @@
-jest.mock('../src/services/imageProcessor', () => ({
+jest.mock('../src/services/imageService/imageProcessor.service', () => ({
     convertToWebP: jest.fn().mockResolvedValue(Buffer.from('mocked-webp-buffer')),
     resizeImage: jest.fn().mockResolvedValue(Buffer.from('mocked-thumbnail-buffer')),
 }))
 
-import * as imageProcessor from '../src/services/imageProcessor'
+import * as imageProcessor from '../src/services/imageService/imageProcessor.service'
 import request from 'supertest'
 import app from '../src/app'
 import path from 'path'
 
 const imageTransformURL = '/api/transform'
-const testImagePath = path.resolve(__dirname, '../test-images/sample_image_1.jpg')
+const testImagePath = path.resolve(__dirname, './test-images/sample_image_1.jpg')
 
 const base64MockedWebpBuffer = Buffer.from('mocked-webp-buffer').toString('base64');
 const base64MockedThumbnailBuffer = Buffer.from('mocked-thumbnail-buffer').toString('base64');
@@ -73,8 +73,8 @@ describe('Images Transformation Endpoint', () => {
         })
 
         it('Should support multiple valid image file formats: jpg, png', async () => {
-            const jpgImagePath = path.resolve(__dirname, '../test-images/sample_image_1.jpg')
-            const pngImagePath = path.resolve(__dirname, '../test-images/sample_image_2.png')
+            const jpgImagePath = path.resolve(__dirname, './test-images/sample_image_1.jpg')
+            const pngImagePath = path.resolve(__dirname, './test-images/sample_image_2.png')
 
             const response = await request(app)
                 .post(imageTransformURL)
@@ -132,7 +132,7 @@ describe('Images Transformation Endpoint', () => {
         })
 
         it('Should return 400 if the uploaded file is not an image', async () => {
-            const invalidFilePath = path.resolve(__dirname, '../test-files/sample_text.txt');
+            const invalidFilePath = path.resolve(__dirname, './test-files/sample_text.txt');
 
             const response = await request(app)
                 .post(imageTransformURL)
