@@ -3,6 +3,7 @@ import { env } from './config/env'
 import app from './app'
 import logger from './utils/logger'
 
+
 const PORT = env.port || 3000
 dotenv.config({ path: env.nodeEnv === 'test' ? '.env.test' : '.env' })
 

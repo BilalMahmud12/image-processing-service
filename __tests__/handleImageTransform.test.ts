@@ -7,6 +7,7 @@ import * as imageProcessor from '../src/services/imageService/imageProcessor.ser
 import request from 'supertest'
 import app from '../src/app'
 import path from 'path'
+import { imageMimeTypes } from '../src/config/mimeTypes'
 
 const imageTransformURL = '/api/transform'
 const testImagePath = path.resolve(__dirname, './test-images/sample_image_1.jpg')
@@ -115,10 +116,6 @@ describe('Images Transformation Endpoint', () => {
         })
     })
 
-    describe('Edge Cases', () => {
-        
-    })
-
     describe('Validation Errors', () => {
         it('Should return 400 if no file is uploaded', async () => {
             const response = await request(app)
@@ -140,7 +137,7 @@ describe('Images Transformation Endpoint', () => {
                 .attach('files', invalidFilePath);
 
             expect(response.status).toBe(400);
-            expect(response.body).toHaveProperty('error', 'Invalid file type. Only JPEG, PNG, and WebP are allowed');
+            expect(response.body).toHaveProperty('error', `Invalid file type. Only ${imageMimeTypes.join(', ')} are allowed`);
             expect(imageProcessor.convertToWebP).not.toHaveBeenCalled();
             expect(imageProcessor.resizeImage).not.toHaveBeenCalled();
         })
@@ -151,7 +148,7 @@ describe('Images Transformation Endpoint', () => {
                 .attach('files', testImagePath);
 
             expect(response.status).toBe(400);
-            expect(response.body).toHaveProperty('error', 'The "type" field is required');
+            expect(response.body).toHaveProperty('error', 'The type field is required');
             expect(imageProcessor.convertToWebP).not.toHaveBeenCalled();
             expect(imageProcessor.resizeImage).not.toHaveBeenCalled();
         })

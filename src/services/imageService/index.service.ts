@@ -52,7 +52,7 @@ const generateVariations = async (
     originalBuffer: Buffer,
     variationsConfig: Record<string, { width: number; height: number }>
 ): Promise<Record<string, string>> => {
-    const variations: Record<string, string> = {};
+    const variations: Record<string, string> = {}
 
     for (const [key, { width, height }] of Object.entries(variationsConfig)) {
         const resizedBuffer = await resizeImage(originalBuffer, width, height)

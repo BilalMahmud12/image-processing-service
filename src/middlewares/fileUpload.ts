@@ -13,7 +13,7 @@ export const upload = multer({
         if (imageMimeTypes.includes(file.mimetype)) {
             callback(null, true);
         } else {
-            callback(new ApplicationError('Invalid file type. Only JPEG, PNG, and WebP are allowed', 400))
+            callback(new ApplicationError(`Invalid file type. Only ${imageMimeTypes.join(', ')} are allowed`, 400))
         }
     },
 })

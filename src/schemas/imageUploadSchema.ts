@@ -9,7 +9,7 @@ export const imageUploadSchema: JSONSchemaType<{ type: string, files: {}[] }> = 
             enum: Object.keys(imageConfig),
             errorMessage: {
                 type: 'The type field must be a string',
-                enum: `The type field must be one of: `,
+                enum: `The type field must be one of: ${Object.keys(imageConfig).join(', ')}`,
             },
         },
         files: {
@@ -29,6 +29,6 @@ export const imageUploadSchema: JSONSchemaType<{ type: string, files: {}[] }> = 
             type: 'The type field is required',
             files: 'The files field is required',
         },
-        additionalProperties: 'Additional properties are not allowed.',
+        additionalProperties: 'Additional properties are not allowed',
     }
 }

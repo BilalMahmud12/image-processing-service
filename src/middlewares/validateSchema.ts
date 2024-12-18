@@ -21,20 +21,31 @@ export const validateImageUpload = (
 
     if (!isValid) {
         const errors = validateSchema.errors as ErrorObject[]
-        const groupedErrors = errors.map((err) => {
-            switch (err.keyword) {
-                case 'required':
-                    return `Missing field: ${err.params.missingProperty}`;
-                case 'type':
-                    return `${err.instancePath} ${err.message}`;
-                case 'enum':
-                    return `${err.instancePath} ${err.message}`;
-                case 'minItems':
-                    return `${err.instancePath} must contain at least one file`;
-                default:
-                    return err.message
-            }
-        })
+
+        console.log('errors', errors)
+
+        const requiredErrors = errors
+            .filter((err) => err.keyword === 'required')
+            .map((err) => `The ${err.params.missingProperty} field is required`)
+
+        console.log('requiredErrors', requiredErrors)
+
+        const otherErrors = errors
+            .filter((err) => err.keyword !== 'required')
+            .map((err) => {
+                if (err.keyword === 'type') {
+                    return `${err.instancePath || 'Field'} ${err.message}`
+                }
+                if (err.keyword === 'enum') {
+                    return `${err.instancePath || 'Field'} ${err.message}`
+                }
+                if (err.keyword === 'minItems') {
+                    return `${err.instancePath} must contain at least one file`
+                }
+                return err.message;
+            });
+
+        const groupedErrors = [...requiredErrors, ...otherErrors]
 
         response.status(400).json({
             error: 'Validation Error',
