@@ -1,7 +1,7 @@
 # Base Image
 FROM node:21-bullseye
 
-# Install necessary build tools and libvips
+# Install build tools and libvips
 RUN apt-get update && apt-get install -y \
     build-essential \
     libc6-dev \
@@ -15,7 +15,7 @@ WORKDIR /app
 # Copy package files and install dependencies
 COPY package*.json yarn.lock ./
 
-# Install dependencies, ensure sharp works correctly
+# Install dependencies
 RUN yarn install --frozen-lockfile --ignore-engines
 
 # Copy application code

@@ -19,11 +19,12 @@ export const handleImageTransform = async (
         const { type } = request.body
         const files = request.files as Express.Multer.File[]
 
-        console.log('start converting files', files)
-
+        logger.info('Start processing files', files)
+ 
         const result = await processImages(type, files)
+        
+        logger.info('finished processing files', result)
 
-        console.log('finished converting files', result)
         response.status(200).json(result)
     } catch (error) {
         const err = error as Error

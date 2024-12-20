@@ -12,3 +12,8 @@ export interface ProcessImagesResult {
     type: string
     files: ProcessedImage[]
 }
+
+export interface CroppedImageResult {
+    original: string
+    cropped: string
+}

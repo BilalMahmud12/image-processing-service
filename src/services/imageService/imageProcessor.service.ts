@@ -16,3 +16,21 @@ export const resizeImage = async (buffer: Buffer, width: number, height: number)
         throw new ApplicationError('Image resizing failed', 500)
     }
 }
+
+export const cropImage = async (
+    buffer: Buffer,
+    left: number,
+    top: number,
+    width: number,
+    height: number,
+): Promise<Buffer> => {
+    try {
+        const croppedImage = await sharp(buffer)
+            .extract({ left, top, width, height })
+            .toBuffer()
+
+        return croppedImage
+    } catch (error) {
+        throw new ApplicationError('Failed to crop the image', 500)
+    }
+}
