@@ -15,7 +15,7 @@ export const handleImageCrop = async (req: Request, res: Response, next: NextFun
         }
     
         logger.info('Start file cropping process', {
-            file: files[0].originalname ?? '',
+            file: files[0].originalname,
             cropParams
         })
 

@@ -14,4 +14,4 @@ services:
       - ./src:/app/src
       - /app/node_modules
     command: yarn start
-    restart: always
+    #restart: always

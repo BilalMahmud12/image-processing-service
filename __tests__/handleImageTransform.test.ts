@@ -15,7 +15,7 @@ const testImagePath = path.resolve(__dirname, './test-images/sample_image_1.jpg'
 const base64MockedWebpBuffer = Buffer.from('mocked-webp-buffer').toString('base64');
 const base64MockedThumbnailBuffer = Buffer.from('mocked-thumbnail-buffer').toString('base64');
 
-describe('Images Transformation Endpoint', () => {
+describe('Images Transformation Functionality', () => {
     beforeEach(() => {
         jest.clearAllMocks()
     })

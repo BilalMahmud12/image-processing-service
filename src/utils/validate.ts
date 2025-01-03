@@ -65,12 +65,12 @@ export const validateImageCropInput = async (
     
         if (!width || !height || isNaN(Number(width)) || isNaN(Number(height))) {
             logger.error('Validation Error: Width and height are required and must be valid numbers', { code: 400, data: request.body })
-            return next(new ApplicationError('Width and height must be valid numbers', 400))
+            return next(new ApplicationError('Validation Error: Width and height are required and must be valid numbers', 400))
         }
 
         if (isNaN(Number(left)) || isNaN(Number(top))) {
             logger.error('Validation Error: Left and top must be valid numbers', { code: 400, data: request.body })
-            return next(new ApplicationError('Left and top must be valid numbers', 400))
+            return next(new ApplicationError('Validation Error: Left and top must be valid numbers', 400))
         }
     
         const parsedLeft = Number(left)
@@ -97,7 +97,7 @@ export const validateImageCropInput = async (
                 cropDimensions: { parsedWidth, parsedHeight },
                 imageDimensions: { width: metadata.width, height: metadata.height },
             })
-            throw next(new ApplicationError('Crop dimensions exceed image size', 400))
+            throw next(new ApplicationError('Validation Error: Crop dimensions exceed image size', 400))
         }
 
         const cropRight = parsedLeft + parsedWidth
